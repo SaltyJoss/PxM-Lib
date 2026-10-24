@@ -35,7 +35,7 @@ namespace physlib::collision {
             double r_b = projectRadius(b, axis);
             double dist = std::abs(mathlib::dot(d, axis));
             double pen = (r_a + r_b) - dist; // 
-            if (pen < 0) { return false; } // Found a separating axis
+            if (pen <= 0) { return false; } // Found a separating axis
             if (pen < minPen) {
                 minPen = pen;
                 minAxis = (d.dot(axis) < 0.0) ? -axis : axis; // Ensure normal points from A to B
@@ -55,7 +55,7 @@ namespace physlib::collision {
         manifold.hit = true;
         manifold.normal = minAxis;
         manifold.toi = 0.0;
-        // This is for the first cube-cube resolution (so a single representative point at the overlap centroiud is enough)
+        manifold.addPoint(0.5 * (a.centre + b.centre), minPen);
         return true;
     }
 } // namespace physlib::collision

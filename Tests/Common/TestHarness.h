@@ -97,3 +97,4 @@ namespace test {
 #define ASSERT_EQ(a, b, tol, msg) test::assertTrue(std::abs((a) - (b)) < (tol)), (msg)
 #define SUCCEED() return
 #define ASSERT_NEAR(a, b, tol) test::assertTrue(std::abs((a) - (b)) < (tol), "Expected " #a " and " #b " to be within " #tol)
+#define CHECK(cond, msg) do { if (!(cond)) { throw std::runtime_error(std::string("CHECK FAILED: ") + (msg)); } } while(0)
